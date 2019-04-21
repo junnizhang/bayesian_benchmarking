@@ -1,0 +1,224 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{caption}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{subcaption}
+\usepackage{url}
+
+%--------------------Initialize---------------------%
+%\textheight= 9in  \textwidth = 6.5in \topmargin = -1.4cmg
+%\oddsidemargin = -0.15in \evensidemargin = 0in
+\bibpunct{(}{)}{;}{a}{,}{,}
+
+\setlength{\textwidth}{6.5in} \setlength{\textheight}{9in}
+\setlength{\topmargin}{-0.5in} \setlength{\oddsidemargin}{0.15in}
+\setlength{\evensidemargin}{0.15in}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand{\baselinestretch}{1.75}
+
+\renewcommand{\theequation}{S--\arabic{equation}}
+
+\newcommand{\pkg}[1]{{\normalfont\fontseries{b}\selectfont #1}}
+\let\proglang=\textit
+\let\code=\texttt
+
+\newcommand{\ind}{\stackrel{\text{ind}}{\sim}}
+%\def \mone{\mbox{\boldmath$1$}}
+%\def \mmu{\mbox{\boldmath$\mu$}}
+%\def \mSigma{\mbox{\boldmath$\Sigma$}}
+%\def \mI{\mbox{\boldmath$I$}}
+%\def \mJ{\mbox{\boldmath$J$}}
+%\def \mOmega{\mbox{\boldmath$\Omega$}}
+
+\begin{document}
+
+\begin{center}
+{\LARGE Supplemental data for ``Fully Bayesian Benchmarking of Small Area Estimation Models''}
+\end{center}
+
+\section{Derivation of Posterior Distribution in the Analytical Example}
+
+Derivation of the posterior distribution for the unbenchmarked model is straightforward.  The posterior distribution for the model with exact benchmarking is obtained as follows.  Under the unbenchmarked model, the joint posterior distribution of $\gamma_i$, $\gamma_j$ ($1\leq i,j\leq n$ and $i\neq j$) and $\psi$ is
+\begin{equation*}
+\left.\left(\begin{array}{c}\gamma_i
+\\\gamma_j\\\psi\end{array}\right)\right|\bm{y} \sim
+ \text{N}\left[\left(\begin{array}{c}\frac{\sigma^2}{\sigma^2+\tau^2}\mu_0+\frac{\tau^2}{\sigma^2+\tau^2}y_i\\
+ \frac{\sigma^2}{\sigma^2+\tau^2}\mu_0+\frac{\tau^2}{\sigma^2+\tau^2}y_j\\
+\frac{\sigma^2}{\sigma^2+\tau^2}\mu_0+\frac{\tau^2}{\sigma^2+\tau^2}m\end{array}\right),
+\frac{\sigma^2\tau^2}{\sigma^2+\tau^2}\left(\begin{array}{ccc}1 &0 &\frac{1}{n}\\0
+& 1 &\frac{1}{n}\\\frac{1}{n}& \frac{1}{n}
+&\frac{1}{n}\end{array}\right)\right].
+\end{equation*}
+Under exact benchmarking, $\psi=m$. Using the property that the conditional distribution of a subvector of a multivariate normally distributed random vector is multivariate normal, it is easy to show that
+\begin{equation*}
+\left.\left(\begin{array}{c}\gamma_i
+\\\gamma_j\end{array}\right)\right|\bm{y}, \{\psi=m \}\sim
+\text{N}\left[\left(\begin{array}{c}\frac{\sigma^2}{\sigma^2+\tau^2}m+\frac{\tau^2}{\sigma^2+\tau^2}y_i\\
+\frac{\sigma^2}{\sigma^2+\tau^2}m+\frac{\tau^2}{\sigma^2+\tau^2}y_j\end{array}\right),
+\frac{\sigma^2\tau^2}{\sigma^2+\tau^2}\left(\begin{array}{cc}1-\frac{1}{n} &
+-\frac{1}{n}\\-\frac{1}{n} & 1-\frac{1}{n}\end{array}\right)\right].
+\end{equation*}
+The exchangeability of the $\gamma_i$ gives (13).
+
+The posterior distribution with inexact benchmarking can be obtained by multiplying the unbenchmarked posterior distribution by (12)
+\begin{align*}
+f(\bm{\gamma}|\bm{y})\propto&
+\exp\left\{-\frac{1}{2}\frac{\sigma^2+\tau^2}{\sigma^2\tau^2}\left(\bm{\gamma}-\frac{\sigma^2}{\sigma^2+\tau^2}\mu_0\bm{1}_n-\frac{\tau^2}{\sigma^2+\tau^2}
+\bm{y}\right)^{\top}
+\left(\bm{\gamma}-\frac{\sigma^2}{\sigma^2+\tau^2}\mu_0\bm{1}_n-\frac{\tau^2}{\sigma^2+\tau^2}\bm{y}\right)\right.\\
+&\quad\quad\ \
+\left.-\frac{(m-\sum_{i=1}^n\gamma_i/n)^2}{2\lambda\sigma^2/n}\right\}.
+\end{align*}
+By completing the squares, it can be shown that
+\begin{align*}
+f(\bm{\gamma}|\bm{y})\propto
+\exp\left\{-\frac{1}{2}(\bm{\gamma}-\bm{\mu}^{\text{IB}})^{\top}(\bm{\Sigma}^{\text{IB}})^{-1}(\bm{\gamma}-\bm{\mu}^{\text{IB}})\right\},
+\end{align*}
+with
+\begin{align*}
+\bm{\Sigma}^{\text{IB}}&=\left(\frac{\sigma^2+\tau^2}{\sigma^2\tau^2}\bm{I}_n+\frac{1}{n\lambda\sigma^2}\bm{J}_n\right)^{-1}\\
+\bm{\mu}^{\text{SB}}&=\bm{\Sigma}^{\text{IB}}\left[\frac{\sigma^2+\tau^2}{\sigma^2\tau^2}\left(\frac{\sigma^2}{\sigma^2+\tau^2}\mu_0\bm{1}_n+\frac{\tau^2}{\sigma^2+\tau^2}\bm{y}\right)+
+\frac{1}{\lambda\sigma^2}m\bm{1}_n\right].
+\end{align*}
+Using the properties that $\bm{J}_n\bm{J}_n=n\bm{J}_n$, $\bm{J}_n\bm{1}_n=n\bm{1}_n$ and $\bm{J}_n\bm{y}=nm\bm{1}_n$, we have
+\begin{align*}
+\bm{\Sigma}^{\text{IB}}&=\frac{\sigma^2\tau^2}{\sigma^2+\tau^2}\left[\bm{I}_n+\frac{\tau^2}{n\lambda(\sigma^2+\tau^2)}\bm{J}_n\right]^{-1}
+=\frac{\sigma^2\tau^2}{\sigma^2+\tau^2}\left[\bm{I}_n
+-
+\frac{\tau^2}{n\lambda\sigma^2+n(\lambda+1)\tau^2}\bm{J}_n\right],\\
+\bm{\mu}^{\text{IB}}&=\frac{\tau^2}{\sigma^2+\tau^2}\left[\bm{I}_n
+-
+\frac{\tau^2}{n\lambda\sigma^2+n(\lambda+1)\tau^2}\bm{J}_n\right]\left(\frac{\sigma^2}{\tau^2}\mu_0\bm{1}_n+\bm{y}+\frac{m}{\lambda}\bm{1}_n\right)\\
+&=\frac{\sigma^2}{\sigma^2+\tau^2}\left[1-\frac{\tau^2}{\lambda\sigma^2+(\lambda+1)\tau^2}\right]\mu_0\bm{1}_n-\frac{\tau^2}{\sigma^2+\tau^2}\bm{y}\\
+&+\frac{\tau^2}{\sigma^2+\tau^2}\left[\frac{1}{\lambda}-\frac{\tau^2}{\lambda\sigma^2+(\lambda+1)\tau^2}-\frac{\tau^2}{\lambda^2\sigma^2+\lambda(\lambda+1)\tau^2}\right]m\bm{1}_n\\
+&=\left[1-\frac{\tau^2}{\lambda\sigma^2+(\lambda+1)\tau^2}\right]\bm{\mu}^{\text{NB}}+\frac{\tau^2}{\lambda\sigma^2+(\lambda+1)\tau^2}\bm{\mu}^{\text{EB}}.
+\end{align*}
+
+\section{Proof that the MCMC Samplers are Valid for Linear Aggregation Functions}
+  \label{sec:gibbs_proof}
+
+\subsection{Proof that the MCMC Sampler Under Exact Benchmarking is Valid}\label{sec:gibbs_proof_exact}
+
+Under exact benchmarking, (4) is a singular distribution concentrated on the region $\{(\bm{\gamma},\bm{\phi}): \bm{B}^{\top}\bm{\gamma}=\bm{m}\}$.
+But a nonsingular distribution can be derived by reparameterization.  Let $\bm{A}$ denote an $n\times (n-d)$ matrix whose column vectors form a basis of the null space $\{\bm{\gamma}:\bm{B}^{\top}\bm{\gamma}=\bm{0}_d\}$, where $\bm{0}_d$ is a vector of $d$ zeros. Let $\bm{\gamma}_0$ denote an $n\times 1$ vector that satisfies $\bm{B}^{\top}\bm{\gamma}_0=\bm{m}$. Each element in the set $\{\bm{\gamma}: \bm{B}^{\top}\bm{\gamma}=\bm{m}\}$ can be reparameterized as $\bm{\gamma}=\bm{A}\bm{\kappa}+\bm{\gamma}_0$ where $\bm{\kappa}$ is an $(n-d)\times 1$ vector.  The distribution (4) implies that, for any $\bm{A}$ and $\bm{\gamma}_0$,
+\begin{equation}
+p(\bm{\kappa},\bm{\phi}|\bm{y},\bm{m},\bm{A},\bm{\gamma}_0)\propto p(\bm{\phi}) p(\bm{A}\bm{\kappa}+\bm{\gamma}_0 | \bm{\phi}) p(\bm{y} | \bm{A}\bm{\kappa}+\bm{\gamma}_0),\label{eq:nonsingular_benchmarked_posterior}
+\end{equation}
+which is a nonsingular distribution.
+
+We only need to show that the Metropolis-Hastings step in E1 is valid in the sense that it leaves the posterior distribution of $(\bm{\kappa},\bm{\phi})$ in \eqref{eq:nonsingular_benchmarked_posterior} invariant for any $\bm{A}$ and $\bm{\gamma}_0$. The other steps are clearly valid.
+
+Suppose that $i_1$ and $i_2$ have been randomly selected and they both belong to $\delta_j$. Let $\mathcal{I}=\{i_{\text{sub},1},\cdots,i_{\text{sub},d}\}$ denote a subset of $\{1,\cdots,n\}$, including one area from each $\delta_{j'}$ for $j'\in\{1,\cdots,d\}$, with $i_{\text{sub},j}=i_2$.  Let $\mathcal{I}_{\text{res}}=\{i_{\text{res},1},\cdots,i_{\text{res},n-d}\}$ denote the rest of areas which are not in $\mathcal{I}$. Let $\bm{\gamma}_{-\mathcal{I}}$ denote the $(n-d)\times 1$ vector of $\gamma_i$ for areas $i\in \mathcal{I}_{\text{res}}$, which does not include $\gamma_{i_2}$ but includes $\gamma_{i_1}$.  Let $\widetilde{\bm{A}}$ denote an $n\times (n-d)$ matrix that satisfies: (a) in each row $i_{\text{res},q}$ ($q=1,\cdots,n-d$), the $q$th element is one, and the other elements are zero; (b) in each row $i_{\text{sub},j'}$ ($j'=1,\cdots,d$), the $q$th element is $-b_{i_{\text{res},q},j'}/b_{i_{\text{sub},j'},j'}$ if $i_{\text{res},q}\in \delta_{j'}$, and is zero otherwise.  It is easy to show that $\widetilde{\bm{A}}$ is full rank and $\bm{B}^{\top}\widetilde{\bm{A}}=\bm{0}_{d\times (n-d)}$, and therefore the column vectors of $\widetilde{\bm{A}}$ form a basis of the null space $\{\bm{\gamma}:\bm{B}^{\top}\bm{\gamma}=\bm{0}_d\}$. Let $\widetilde{\bm{\gamma}}_0$ denote an $n\times 1$ vector with elements equal to $m_{j'}/b_{i_{\text{sub},j'},j'}$ in positions $i_{\text{sub},j'}$ for $j'\in \{1,\cdots,d\}$, and zero elsewhere. It is easy to show that $\bm{B}^{\top}\widetilde{\bm{\gamma}}_0=\bm{m}$.
+
+For example, suppose that $n=6$, $d=2$, $\delta_1=\{1,2,3\}$ and $\delta_2=\{4,5,6\}$.  Then
+\begin{align*}
+\bm{B}^{\top}&=\left(\begin{array}{cccccc} b_{11} & b_{21} & b_{31} & 0 & 0 &0\\ 0 & 0 & 0 & b_{42} & b_{52} & b_{62}\end{array}\right),\\
+\widetilde{\bm{A}}&=\left(\begin{array}{cccc} 1 & 0 & 0 & 0\\ 0 & 1 & 0 & 0\\ -\frac{b_{11}}{b_{31}} & -\frac{b_{21}}{b_{31}} & 0 & 0\\
+0 & 0 & 1 & 0\\ 0 & 0 & 0 &1\\ 0 & 0 & -\frac{b_{42}}{b_{62}} & -\frac{b_{52}}{b_{62}}\end{array}\right),\\
+\widetilde{\bm{\gamma}}_0&=\left(\begin{array}{cccccc} 0 &0 &\frac{m_1}{b_{31}} &0 &0 & \frac{m_2}{b_{62}}\end{array}\right)^{\top}.
+\end{align*}
+It is easy to verify that $\widetilde{\bm{A}}$ is full rank, $\bm{B}^{\top}\widetilde{\bm{A}}=\bm{0}_{2\times 4}$, and $\bm{B}^{\top}\widetilde{\bm{\gamma}}_0=(m_1,m_2)^{\top}$.
+
+Apparently, any $\bm{\gamma}$ satisfying $\bm{B}^{\top}\bm{\gamma}=\bm{m}$ can be written as $\bm{\gamma}=\widetilde{\bm{A}}\bm{\gamma}_{-\mathcal{I}}+\widetilde{\bm{\gamma}}_0$. If $\bm{\gamma}$ comes from (4), then equation \eqref{eq:nonsingular_benchmarked_posterior}
+implies that
+\begin{equation}\label{eq:gamma_subvec_dist}
+p(\bm{\gamma}_{-\mathcal{I}},\bm{\phi}|\bm{y})\propto p(\bm{\phi}) p(\widetilde{\bm{A}}\bm{\gamma}_{-\mathcal{I}}+\widetilde{\bm{\gamma}}_0 | \bm{\phi}) p(\bm{y} | \widetilde{\bm{A}}\bm{\gamma}_{-\mathcal{I}}+\widetilde{\bm{\gamma}}_0).
+\end{equation}
+
+Conditional on $i_1$ and $i_2$ being selected, the Metropolis-Hastings step in E1 can be treated as an update of the single element $\gamma_{i_1}$ in $\bm{\gamma}_{-\mathcal{I}}$, which can be done in two ways: (a) drawing $\gamma_{i_1}^*$ from $J(\gamma_{i_1}^*|\gamma_{i_1}^{(t-1)})$; (b) drawing proposal for
+\begin{equation*}
+\gamma_{i_2}=\frac{m_j-\sum_{i\in\delta_j;i\notin\{i_1,i_2\}}b_{ij}\gamma_{i}^{(t-1)}-b_{i_1j}\gamma_{i_1}}{b_{i_2j}},
+\end{equation*}
+a linear function of $\gamma_{i_1}$, from $J(\gamma_{i_2}^*|\gamma_{i_2}^{(t-1)})$, and then calculating $\gamma_{i_1}^*=\gamma_{i_1}^{(t-1)}+b_{i_2 j}/b_{i_1 j}\left(\gamma_{i_2}^{(t-1)}-\gamma_{i_2}^*\right)$.  The proposal distribution for $\gamma_{i_1}$ is hence
+\begin{equation*}
+\frac{1}{2}J(\gamma_{i_1}^*|\gamma_{i_1}^{(t-1)})+\frac{1}{2}\left|\frac{b_{i_1j}}{b_{i_2j}}\right|J(\gamma_{i_2}^*|\gamma_{i_2}^{(t-1)}).
+\end{equation*}
+It is easy to see that this proposal distribution coupled with the acceptance ratio in (19) is valid for the posterior distribution in \eqref{eq:gamma_subvec_dist}.
+
+Now consider any other reparameterization of $\bm{\gamma}$ in the form of $\bm{\gamma}=\bm{A}\bm{\kappa}+\bm{\gamma}_0$, where $\bm{A}$ is an $n\times (n-d)$ matrix whose column vectors form a basis of the null space $\{\bm{\gamma}:\bm{B}^{\top}\bm{\gamma}=\bm{0}_d\}$, and $\bm{\gamma}_0$ is an $n\times 1$ vector that satisfies $\bm{B}^{\top}\bm{\gamma}_0=\bm{m}$.  We have
+\begin{equation}\label{eq:equiv_transform}
+\bm{\gamma}^{\dag}\equiv\bm{A}\bm{\kappa}=\widetilde{\bm{A}}\bm{\gamma}_{-\mathcal{I}}+\widetilde{\bm{\gamma}}_0-\bm{\gamma}_0.
+\end{equation}
+It is easy to see that $\bm{B}^{\top}(\widetilde{\bm{A}}\bm{\gamma}_{-\mathcal{I}}+\widetilde{\bm{\gamma}}_0-\bm{\gamma}_0)=\bm{0}_d$, and hence $\bm{\gamma}^{\dag}$ belongs to $\{\bm{\gamma}:\bm{B}^{\top}\bm{\gamma}=\bm{0}_d\}$.  Since the column vectors of $\bm{A}$ form a basis of this null space, there is a unique vector $\bm{\kappa}$ that satisfies $\bm{\gamma}^{\dag}=\bm{A}\bm{\kappa}$. Hence $\bm{\kappa}$ is a one-to-one linear tranformation of $\bm{\gamma}_{-\mathcal{I}}$.  Since the Metropolis-Hastings step in E1 leaves the posterior distribution of $(\bm{\gamma}_{-\mathcal{I}},\bm{\phi})$ invariant, it also leaves the posterior distribution of $(\bm{\kappa},\bm{\phi})$ in \eqref{eq:nonsingular_benchmarked_posterior} invariant.
+
+\subsection{Proof that the Gibbs Sampler Under Inexact Benchmarking is Valid}\label{sec:gibbs_proof_inexact}
+
+We only need to show that step I1 leaves the posterior distribution in (4) invariant.
+
+Suppose that $i_1$ and $i_2$ have been randomly selected and they both belong to $\delta_j$.
+Consider the reparameterization of $\bm{\gamma}$ in the form of $\bm{\gamma}=\widetilde{\bm{A}}\bm{\gamma}_{-\mathcal{I}}+\widetilde{\bm{\gamma}}_{0,\bm{\psi}}$, where $\widetilde{\bm{\gamma}}_{0,\bm{\psi}}$ denotes an $n\times 1$ vector with elements equal to $\psi_{j'}/b_{i_{\text{sub},j'},j'}$ in positions $i_{\text{sub},j'}$ for $j'\in \{1,\cdots,d\}$, and zero elsewhere.  Then $(\bm{\gamma}_{-\mathcal{I}},\bm{\psi})$ is a one-to-one linear transformation of $\bm{\gamma}$.  According to (4), the conditional distribution of $(\bm{\gamma}_{-\mathcal{I}},\bm{\phi})$ given $\bm{\psi}$ is in the form:
+\begin{equation*}
+p(\bm{\gamma}_{-\mathcal{I}},\bm{\phi}|\bm{y},\bm{m},\bm{\psi})\propto p(\bm{\phi})p(\widetilde{\bm{A}}\bm{\gamma}_{-\mathcal{I}}+\widetilde{\bm{\gamma}}_{0,\bm{\psi}}|\bm{\phi})
+p(\bm{y}|\widetilde{\bm{A}}\bm{\gamma}_{-\mathcal{I}}+\widetilde{\bm{\gamma}}_{0,\bm{\psi}}).
+\end{equation*}
+The proof in Section~\ref{sec:gibbs_proof_exact} indicates that step I1 leaves this conditional distribution invariant.  Hence, step I1 also leaves the joint distribution of $(\bm{\gamma}_{-\mathcal{I}},\bm{\psi},\bm{\phi})$ invariant, and equivalently leaves the joint distribution of $(\bm{\gamma},\bm{\phi})$ in (4) invariant.
+
+\section{Application of the MCMC Samplers to a Family of Area-level Models}
+
+The parts of the algorithms described in Section 2.3 that directly involve benchmarking and that depend on the specific details of the model are step E1, step I1 (which is similar to step E1), and step I2.
+
+We begin with step E1. Let $\eta_{i}=g(\gamma_{i})$ for $i=1,\cdots,n$.  We obtain a proposal for $\gamma_{i_1}$ by drawing $\eta_{i_1}^*$ from $\text{N}(\eta_{i_1}^{(t-1)},\rho_1^2)$, with $\rho_1^2>0$, and set $\gamma_{i_1}^*=g^{-1}(\eta_{i_1}^*)$.  The proposal density for $\gamma_{i_1}^*$ is then
+\begin{equation}
+  J(\gamma_{i_1}^* \mid \gamma_{i_1}^{(t-1)}) = g'(\gamma_{i_1}^*)\text{N}\left(g(\gamma_{i_1}^*) \mid  g(\gamma_{i_1}^{(t-1)}), \rho_1^2 \right),
+\end{equation}
+where $g'(\cdot)$ is the first derivative of $g(\cdot)$.
+We then set
+\begin{equation}
+  \gamma_{i_2}^* = \gamma_{i_2}^{(t-1)}+\frac{b_{i_1j}}{b_{i_2j}}\left( \gamma_{i_1}^{(t-1)} - \gamma_{i_1}^* \right).
+\end{equation}
+
+The Metropolis-Hastings ratio in (19) becomes
+\begin{align}\label{eq:aratio_E1_specific}
+  r & = \left[\frac{ p(y_{i_1} \mid \gamma_{i_1}^*, w_{i_1}, \sigma^2 )}  { p(y_{i_1} \mid \gamma_{i_1}^{(t-1)}, w_{i_1}, \sigma^2 ) } \frac{ g'(\gamma_{i_1}^*)\text{N}\left(g(\gamma_{i_1}^*) \mid \bm{x}_{i_1}\bm{\beta}^{(t-1)}, \tau^{2\ (t-1)} \right)} { g'(\gamma_{i_1}^{(t-1)})\text{N}\left(g(\gamma_{i_1}^{(t-1)}) \mid \bm{x}_{i_1}\bm{\beta}^{(t-1)}, \tau^{2\ (t-1)} \right) }\right] \notag \\
+  & \quad \quad \times \left[\frac{ p(y_{i_2} \mid \gamma_{i_2}^*, w_{i_2}, \sigma^2 )}  { p(y_{i_2} \mid \gamma_{i_2}^{(t-1)}, w_{i_2}, \sigma^2 ) } \frac{ g'(\gamma_{i_2}^*)\text{N}\left(g(\gamma_{i_2}^*) \mid \bm{x}_{i_2}\bm{\beta}^{(t-1)}, \tau^{2\ (t-1)} \right)} { g'(\gamma_{i_2}^{(t-1)})\text{N}\left(g(\gamma_{i_2}^{(t-1)}) \mid \bm{x}_{i_2}\bm{\beta}^{(t-1)}, \tau^{2\ (t-1)} \right) }\right]\notag\\
+  & \quad \quad \quad \quad \times \frac{ g'(\gamma_{i_1}^{(t-1)})\text{N}\left(g(\gamma_{i_1}^{(t-1)}) \mid  g(\gamma_{i_1}^*), \rho_1^2 \right) +  \left|b_{i_1j}/b_{i_2j}\right|g'(\gamma_{i_2}^{(t-1)})\text{N}\left(g(\gamma_{i_2}^{(t-1)}) \mid  g(\gamma_{i_2}^*), \rho_1^2 \right)}
+  {g'(\gamma_{i_1}^*)\text{N}\left(g(\gamma_{i_1}^*) \mid  g(\gamma_{i_1}^{(t-1)}), \rho_1^2 \right) +  \left|b_{i_1j}/b_{i_2j}\right|g'(\gamma_{i_2}^*)\text{N}\left(g(\gamma_{i_2}^*) \mid  g(\gamma_{i_2}^{(t-1)}), \rho_1^2 \right)}.
+\end{align}
+
+Step I2 is carried out as follows.  For $j=1,\dotsc,d$, let $\bm{\gamma}_j$ denote the $n_j\times 1$ vector of $\gamma_i$ for $i \in \delta_j$.
+We iteratively sample $\bm{\gamma}_j$ ($j=1,\cdots,d$) using a Metropolis-Hastings step.  Let $n_j$ denote the number of elements in $\delta_j$, let $\bm{b}_j$ denote the $n_j\times 1$ vector of $b_{ij}$ for $i \in \delta_j$, and let $\bm{\eta}_j = g(\bm{\gamma}_j)$, where $g$ is applied element by element.  Let $\bm{\gamma}_j^{(t-\frac{1}{2})}$ and $\bm{\eta}_j^{(t-\frac{1}{2})}$ denote the values of $\bm{\gamma}_j$ and $\bm{\eta}_j$ after step I1.  We set
+\begin{equation}
+  \bm{\eta}_j^* \sim \text{N}(\bm{\eta}_j^{(t-\frac{1}{2})},\rho_2^2 \bm{I}_{n_j}),
+\end{equation}
+where $\rho_2^2>0$.  We then set $\bm{\gamma}_j^* = g^{-1}(\bm{\eta}_j^*)$, where $g^{-1}$ is applied element by element.  For instance, with the model for the benchmarks given by (6), the acceptance ratio is
+\begin{align}\label{eq:aratio_S2}
+  r & =\prod_{i \in \delta_j} \left[\frac{ p(y_i \mid \gamma_i^*, w_i, \sigma^2 )}  { p(y_i \mid \gamma_i^{(t-\frac{1}{2})}, w_i, \sigma^2 ) } \frac{ \text{N}\left(g(\gamma_i^*) \mid \bm{x}_i\bm{\beta}^{(t-1)}, \tau^2 \right)}{\text{N}\left(g(\gamma_i^{(t-\frac{1}{2})}) \mid \bm{x}_i\bm{\beta}^{(t-1)}, \tau^2 \right) }\right] \notag \\
+  & \quad \quad \times \text{exp}\left( \frac{ \left(m_j-\sum_{i\in\delta_j}b_{ij}\gamma_i^{(t-\frac{1}{2})}\right)^2
+  -\left(m_j-\sum_{i\in\delta_j}b_{ij}\gamma_i^*\right)^2}{ 2\lambda s_j^2} \right).
+\end{align}
+
+
+\section{Extension to Unit-Level Models}
+  \label{sec:extension-unit}
+
+In some applications, unit-level covariates are available and can be used to improve the precision of the estimates of area-level quantities. Suppose that a sample of size $l_i$ is taken from the $L_i$ units in area $i$, and that for each sampled unit $k = 1, \dots, l_i$ in area $i$, there is a response $y_{ik}$ and a vector of covariates $\bm{z}_{ik}=(z_{ik1},\dots,z_{ikp})^{\top}$, not including the constant term.  A random intercept model, for intance, can be fitted that combines unit-level and area-level covariates,
+\begin{align}
+\label{eq:unit-yik}  y_{ik} & \sim G( \theta_{ik}, \xi) \\
+  g(\theta_{ik})&=\bm{z}_{ik}^{\top}\bm{\alpha} + \bm{x}_i^{\top} \bm{\beta}+\zeta_i\\
+  \zeta_i&\sim \text{N}(0,\sigma^2),
+\end{align}
+where $G$ typically is the normal or Bernoulli distribution, $\xi$ is a standard deviation (used only with the normal distribution), $g$ is the identity or logit link function, and $\zeta_i$ is an area-specific random effect, with $\bm{\zeta}=(\zeta_1,\cdots,\zeta_n)$.
+
+We assume that the aim of the modelling is to estimate area-level quantities such as $\gamma_i = \sum_{k=1}^{L_i} \theta_{ik}  / L_i$.  For simplicity, we assume that observations on $\bm{z}_{ik}$ are available for all non-sampled units.  Parameter $\gamma_i$ can then be written as $\sum_{k=1}^{L_i} g^{-1}(\bm{z}_{ik}^{\top}\bm{\alpha} + \bm{x}_i^{\top} \bm{\beta}+\zeta_i)/L_i$.  Parameter $\psi_j$ has the form
+\begin{equation}
+  \psi_j =  f_j\left( \sum_{k=1}^{L_1} \frac{ g^{-1}(\bm{z}_{1k}^{\top}\bm{\alpha} + \bm{x}_1^{\top} \bm{\beta}+\zeta_1) }{ L_1 },\cdots,
+   \sum_{k=1}^{L_n} \frac{ g^{-1}(\bm{z}_{nk}^{\top}\bm{\alpha} + \bm{x}_n^{\top} \bm{\beta}+\zeta_n) }{ L_n }   \right).\label{eq:unit-psij}
+\end{equation}
+
+In area-level models, conditional on the hyperparameters $\bm{\phi}$, the $\gamma_i$ are independent.  In contrast, in unit-level models, even after conditioning on $\bm{\phi}$, the $\gamma_i$ are not independent, because they depend on the same set of  $\bm{\alpha}$, $\bm{\beta}$ and $\bm{\zeta}$.  In area-level models, the $\gamma_i$ can be updated on their own or in pairs, while in unit-level models, if $\bm{\alpha}$ or $\bm{\beta}$ is updated, then all $\gamma_i$ must be updated as well.  Exact benchmarking requires that the updated $\gamma_i$ satisfy $\psi_j = m_j$ for all $j$.  Satisfying these constraints while updating all $\gamma_i$ would be extremely difficult.  Exact benchmarking is therefore likely to be impractical for unit-level models.  In contrast, because inexact benchmarking does not require strict constraints, it can be implemented through a Gibbs sampler in which vectors $\bm{\alpha}$, $\bm{\beta}$ and $\bm{\zeta}$ are each updated using a Metropolis-Hastings step.  Exact benchmarking can be approximated by inexact benchmarking with a suitable value for the tuning parameter $\lambda$.
+
+Once the model of \eqref{eq:unit-yik} - \eqref{eq:unit-psij} has been fitted, it is possible to draw values of $y_{ik}$ for non-sampled individuals.  Combining these values with values for sampled individuals can provide finite-population area-level poverty estimates comparable to those of the World Bank method \citep{elbers2003micro}. However, because the model is fitted using fully Bayesian methods, which, in contrast to standard implementations of the World Bank methods, treat all hyper-parameters as uncertain, the associated measures of uncertainty are likely to be more satisfactory.
+
+\bibliographystyle{apalike}
+\bibliography{fbb}
+
+
+\end{document}
+
